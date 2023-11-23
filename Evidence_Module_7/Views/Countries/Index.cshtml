@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Evidence_Module_7.Models.Country>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3>Country List</h3>
+        <div class="d-flex justify-content-end mb-1">
+
+
+            <a href="@Url.Action("Create", "Countries")" class="btn btn-primary btn-sm">Create New</a>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th></th>
+                    <th>CountryName</th>
+                    <th>Capital</th>                                   
+                    <th>Is Developed?</th>
+                    <th>...</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr style="vertical-align:middle">
+                        <td><img src="~/Pictures/@c.Picture" class="img-thumbnail rounded-circle" style="width:50px" /></td>
+                        <td>@c.CountryName</td>
+                        <td>@c.Capital</td>
+                        <td>@(c.IsDeveloped ? "Yes": "No")</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Countries", new {id=c.CountryId})" class="btn btn-success btn-sm">Edit</a>
+                            <a href="@Url.Action("Delete", "Countries", new {id=c.CountryId})" class="btn btn-danger btn-sm del">Delete</a>
+
+                        </td>
+                    </tr>
+                    <tr id="tru_@c.CountryId">
+                        <td></td>
+                        <td colspan="5">
+                            <h4>Universities</h4>
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>AdmissionRequirment</th>
+                                        <th>EstublishDate</th>                                    
+                                        <th>Ranking</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var u in c.Universities)
+                                    {
+                                        <tr>
+                                            <td>@u.UniversityName</td>
+                                            <td>@u.AdmissionRequirment</td>
+                                            <td>@u.EstublishDate.ToString("yyyy-MM-dd")</td>                                        
+                                            <td>@u.Ranking</td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
